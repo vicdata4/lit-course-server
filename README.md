@@ -19,11 +19,11 @@ https://www.npmjs.com/package/adm-zip
 
 ## Run server
 
-`git clone https://github.com/vicdata4/lit-course-server.git`
+```git clone https://github.com/vicdata4/lit-course-server.git```
 
-`npm install`
+```npm install```
 
-`cd lit-course-server`
+```cd lit-course-server```
 
 Create config.js file
 
@@ -40,7 +40,7 @@ module.exports = {
 };
 ```
 
-`node server.js`
+```node server.js```
 
 ## MongoDB Configuration
 
