@@ -1,12 +1,16 @@
-const validators = require('../utils/validators.js');
+const { mongo, url, options } = require('../../mongo.config.js');
 
-const mock = [
-  { id: 1, mail: 'test1@test.com' },
-  { id: 2, mail: 'test2@test.com' }
-];
+exports.getCountries = (req, res) => {
+  mongo.connect(url, options).then(client => {
+    const collection = client.db('lit-course').collection('countries');
 
-exports.getUserList = (req, res) => {
-  if (req.params && req.params.email && validators.emailValidator(req.params.email)) {
-    res.json({ data: mock });
-  }
+    collection.find().toArray().then(data => {
+      res.send({ data });
+      client.close();
+    }).catch(() => {
+      client.close();
+    });
+  }).catch(() => {
+    res.status(500).send();
+  });
 };

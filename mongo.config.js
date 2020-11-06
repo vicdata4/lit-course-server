@@ -8,6 +8,5 @@ module.exports = {
     useUnifiedTopology: true,
     serverSelectionTimeoutMS: 5000
   },
-  db_name: 'lit-course',
-  userCollection: 'users'
+  db_name: 'lit-course'
 };
