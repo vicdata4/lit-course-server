@@ -16,7 +16,7 @@ Create config.js file
 
 ```js
 module.exports = {
-  publicPath: 'absolute/path/to/your/lit-course/build', // required
+  publicPath: '',
   port: 3000,
   origin: `http://localhost:${this.port}`,
   mongodb: {
@@ -26,9 +26,16 @@ module.exports = {
 };
 ```
 
+Replace the empty `publicPath` value `''` with your `absolute/path/to/your/lit-course/build`
+
 Run server
 ```
 npm run server
+```
+
+From the browser
+```
+http://localhost:3000/
 ```
 
 ## MongoDB Configuration
@@ -42,15 +49,15 @@ Run mongodb
 ./mongo
 ```
 
-### Create collections
+Create data base
 
 ```
 use lit-course
 ```
 
-Create collections
+Create collection
 ```
-db.createCollection('lit-course')
+db.createCollection('lit-data')
 ```
 
 
