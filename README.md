@@ -1,33 +1,20 @@
-# server
+![](https://cdn.jsdelivr.net/gh/vicdata4/lit-course/assets/images/logo_.png?v=4&s=100)
 
-#### Requirements
+## Quickstart
 
-Documentation
+```
+git clone https://github.com/vicdata4/lit-course-server.git
 
-https://expressjs.com/en/resources/middleware/csurf.html
+cd lit-course-server
+```
 
-https://www.npmjs.com/package/multer
-
-https://www.npmjs.com/package/adm-zip
-
-* node v10.15.3</br>
-* npm v6.4.1
-
-#### Dependencies
-
-* node-express ^4.17.1</br>
-
-## Run server
-
-```git clone https://github.com/vicdata4/lit-course-server.git```
-
-```npm install```
-
-```cd lit-course-server```
+```
+npm install
+```
 
 Create config.js file
 
-```
+```js
 module.exports = {
   secret: 'auth-private-key',
   prefix: 'prefix-string',
@@ -40,7 +27,9 @@ module.exports = {
 };
 ```
 
-```node server.js```
+```
+node server.js
+```
 
 ## MongoDB Configuration
 
