@@ -1,7 +1,7 @@
 const { domain, port } = require('./config.js').mongodb;
 
 const mongo = require('mongodb').MongoClient;
-const url = `mongodb://${domain}:${port}:27017`;
+const url = `mongodb://${domain}:${port}`;
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
