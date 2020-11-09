@@ -1,76 +1,74 @@
 const { ObjectID } = require('mongodb');
-const { mongo, url, options } = require('../../mongo.config.js');
+const { mongoConnect } = require('../../mongo.config.js');
 
-exports.addItem = (req, res) => {
+exports.addItem = async (req, res) => {
   const data = req.body;
+  const mongo = await mongoConnect();
 
-  mongo.connect(url, options).then(client => {
-    const collection = client.db('lit-course').collection('lit-data');
-
-    collection.insertOne(data).then(item => {
+  if (mongo.client) {
+    mongo.collection.insertOne(data).then(item => {
       if (item) {
         res.send({ result: item.result });
       }
-      client.close();
+      mongo.client.close();
     }).catch(() => {
-      client.close();
+      mongo.client.close();
     });
-  }).catch(() => {
+  } else {
     res.status(500).send();
-  });
+  }
 };
 
-exports.deleteItem = (req, res) => {
+exports.deleteItem = async (req, res) => {
   const id = req.params.id;
+  const mongo = await mongoConnect();
 
-  mongo.connect(url, options).then(client => {
-    const collection = client.db('lit-course').collection('lit-data');
-
-    collection.deleteOne({ _id: ObjectID(id) }).then(item => {
+  if (mongo.client) {
+    mongo.collection.deleteOne({ _id: ObjectID(id) }).then(item => {
       if (item) {
         res.send({ result: item.result });
       }
-      client.close();
+      mongo.client.close();
     }).catch(() => {
-      client.close();
+      mongo.client.close();
     });
-  }).catch(() => {
+  } else {
     res.status(500).send();
-  });
+  }
 };
 
-exports.updateItem = (req, res) => {
+exports.updateItem = async (req, res) => {
   const data = req.body;
   const _id = ObjectID(data.id);
   delete data.id;
 
-  mongo.connect(url, options).then(client => {
-    const collection = client.db('lit-course').collection('lit-data');
+  const mongo = await mongoConnect();
 
-    collection.updateOne({ _id }, { $set: data }).then(item => {
+  if (mongo.client) {
+    mongo.collection.updateOne({ _id }, { $set: data }).then(item => {
       if (item) {
         res.send({ result: item.result });
       }
-      client.close();
+      mongo.client.close();
     }).catch(() => {
-      client.close();
+      mongo.client.close();
     });
-  }).catch(() => {
+  } else {
     res.status(500).send();
-  });
+  }
 };
 
-exports.getItems = (req, res) => {
-  mongo.connect(url, options).then(client => {
-    const collection = client.db('lit-course').collection('lit-data');
+exports.getItems = async (req, res) => {
+  const mongo = await mongoConnect();
 
-    collection.find().limit(100).toArray().then(data => {
+  if (mongo.client) {
+    mongo.collection.find().limit(100).toArray().then(data => {
       res.send({ data });
-      client.close();
+      mongo.client.close();
     }).catch(() => {
-      client.close();
+      mongo.client.close();
     });
-  }).catch(() => {
+  } else {
     res.status(500).send();
-  });
+  }
 };
