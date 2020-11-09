@@ -16,10 +16,9 @@ Create config.js file
 
 ```js
 module.exports = {
-  secret: 'auth-private-key',
-  prefix: 'prefix-string',
-  publicPath: 'build-path',
-  origin: 'http://ip:3000',
+  publicPath: 'absolute/path/to/your/lit-course/build', // required
+  port: 3000,
+  origin: `http://localhost:${this.port}`,
   mongodb: {
     domain: 'localhost',
     port: '27017'
@@ -27,8 +26,9 @@ module.exports = {
 };
 ```
 
+Run server
 ```
-node server.js
+npm run server
 ```
 
 ## MongoDB Configuration

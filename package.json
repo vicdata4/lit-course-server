@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./app/**",
-    "lint:fix": "eslint --fix ./app/**"
+    "lint:fix": "eslint --fix ./app/**",
+    "server": "node ./server.js"
   },
   "license": "ISC",
   "dependencies": {

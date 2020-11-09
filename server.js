@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const config = require('./config.js');
 const cookieParser = require('cookie-parser');
 const { mongo, url, options } = require('./mongo.config.js');
+const reset = '\x1b[0m';
 
 const app = express();
 app.use(cookieParser());
@@ -20,7 +21,7 @@ app.use(function (req, res, next) {
 
 mongo.connect(url, options).then(client => {
   // eslint-disable-next-line no-console
-  console.log('Connected successfully to Mongodb');
+  console.log(`${reset} \x1b[32m`, 'Connected successfully to Mongodb', '\x1b[0m');
   client.close();
 }).catch(() => {
   // eslint-disable-next-line no-console
@@ -35,7 +36,7 @@ app.get('*', (req, res) => {
   res.sendFile(`${config.publicPath}/index.html`);
 });
 
-app.listen(3000, () => {
+app.listen(config.port, () => {
   // eslint-disable-next-line no-console
-  console.log('Server is listening on port 3000');
+  console.log(`${reset} \x1b[36m`, 'LitCourse Server', `${reset}is listening on port ${config.port} 🚀`);
 });
