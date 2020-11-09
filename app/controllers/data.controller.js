@@ -39,7 +39,28 @@ exports.deleteItem = (req, res) => {
   });
 };
 
-exports.getItemList = (req, res) => {
+exports.updateItem = (req, res) => {
+  const data = req.body;
+  const _id = ObjectID(data.id);
+  delete data.id;
+
+  mongo.connect(url, options).then(client => {
+    const collection = client.db('lit-course').collection('lit-data');
+
+    collection.updateOne({ _id }, { $set: data }).then(item => {
+      if (item) {
+        res.send({ result: item.result });
+      }
+      client.close();
+    }).catch(() => {
+      client.close();
+    });
+  }).catch(() => {
+    res.status(500).send();
+  });
+};
+
+exports.getItems = (req, res) => {
   mongo.connect(url, options).then(client => {
     const collection = client.db('lit-course').collection('lit-data');
 
