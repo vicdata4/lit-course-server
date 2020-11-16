@@ -6,11 +6,19 @@ exports.addItem = async (req, res) => {
   const mongo = await mongoConnect();
 
   if (mongo.client) {
-    mongo.collection.insertOne(data).then(item => {
-      if (item) {
-        res.send({ result: item.result });
+    mongo.collection.findOne({ date: data.date }).then(item => {
+      if (!item) {
+        mongo.collection.insertOne(data).then(item => {
+          if (item) {
+            res.send({ result: item.result });
+          }
+          mongo.client.close();
+        }).catch(() => {
+          mongo.client.close();
+        });
+      } else {
+        res.send({ exist: true });
       }
-      mongo.client.close();
     }).catch(() => {
       mongo.client.close();
     });
