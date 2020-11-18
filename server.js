@@ -34,6 +34,7 @@ app.use(function (req, res, next) {
 app.use(express.static(config.publicPath));
 
 require('./app/lit-course.routes.js')(app);
+require('./app/routes/xbeni.routes.js')(app);
 
 app.get('*', (req, res) => {
   res.sendFile(`${config.publicPath}/index.html`);
