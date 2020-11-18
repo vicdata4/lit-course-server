@@ -13,7 +13,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', config.origin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type,form-data');
@@ -34,6 +34,7 @@ app.use(function (req, res, next) {
 app.use(express.static(config.publicPath));
 
 require('./app/lit-course.routes.js')(app);
+require('./app/routes/hck3791.routes.js')(app);
 
 app.get('*', (req, res) => {
   res.sendFile(`${config.publicPath}/index.html`);
