@@ -1,12 +1,12 @@
 const { ObjectID } = require('mongodb');
 const { mongoConnect } = require('../../../mongo.config.js');
 
-exports.addPetition = async (req, res) => {
+ exports.addPetition = async (req, res) => {
   const data = req.body;
   const mongo = await mongoConnect({ db: 'lit-course', collection: 'petitions' });
 
   if (mongo.client) {
-    mongo.collection.findOne({ date: data.date }).then(item => {
+    mongo.collection.findOne({ id: data.id }).then(item => {
       if (!item) {
         mongo.collection.insertOne(data).then(item => {
           if (item) {
@@ -28,11 +28,11 @@ exports.addPetition = async (req, res) => {
 };
 
 exports.deletePetition = async (req, res) => {
-  const id = req.params.id;
+  const id = JSON.parse(req.params.id);
   const mongo = await mongoConnect({ db: 'lit-course', collection: 'petitions' });
 
   if (mongo.client) {
-    mongo.collection.deleteOne({ _id: ObjectID(id) }).then(item => {
+    mongo.collection.deleteOne({ id: id }).then(item => {
       if (item) {
         res.send({ result: item.result });
       }
@@ -47,13 +47,13 @@ exports.deletePetition = async (req, res) => {
 
 exports.updatePetition = async (req, res) => {
   const data = req.body;
-  const _id = ObjectID(data.id);
+  const id = JSON.parse(req.body.id);
   delete data.id;
 
   const mongo = await mongoConnect({ db: 'lit-course', collection: 'petitions' });
 
   if (mongo.client) {
-    mongo.collection.updateOne({ _id }, { $set: data }).then(item => {
+    mongo.collection.updateOne({ id }, { $set: data }).then(item => {
       if (item) {
         res.send({ result: item.result });
       }
@@ -66,7 +66,7 @@ exports.updatePetition = async (req, res) => {
   }
 };
 
-exports.getPetition = async (req, res) => {
+exports.getPetitions = async (req, res) => {
   const mongo = await mongoConnect({ db: 'lit-course', collection: 'petitions' });
 
   if (mongo.client) {
